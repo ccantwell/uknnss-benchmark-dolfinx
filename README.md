@@ -90,9 +90,7 @@ GDoFs/s, which is reported at the end of each run, and also saved to
 the JSON files.
 Some baseline data is shown below.
 
-* LUMI-G (MI-250X)
-
-### Throughput in GDoFs/s for 1-16 nodes (8-128 GCDs)
+### LUMI-G (MI250x): Throughput in GDoFs/s for 1-16 nodes (8-128 GCDs)
 
 |Operation|1|2|4|8|16|
 |---------|-|-|-|-|--|
@@ -103,3 +101,15 @@ Some baseline data is shown below.
 |Q6 10M|26.5277|50.4899|94.0343|142.381|371.053|
 |Q3 60M|19.6491|38.9419|73.6595|147.589|299.465|
 |Q6 60M|28.0689|55.0029|103.26|197.221|415.822|
+
+### MI300A cluster: Throughput in GDoFs/s for 1-8 nodes (4-32 GPUs)
+
+|Operation|1|2|4|8|
+|---------|-|-|-|-|
+|mat comp|3.70142|6.52107|11.9579|20.8933|
+|Q3 1M|24.4511|44.277|79.539|154.18|
+|Q6 1M|27.7874|49.2628|77.3741|127.325|
+|Q3 10M|48.2874|92.4112|183.177|347.873|
+|Q6 10M|53.7815|104.291|194.774|359.522|
+|Q3 100M|45.5119|82.7794|180.229|348.493|
+|Q6 100M|56.2028|109.023|213.855|417.954|
