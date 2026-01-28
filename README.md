@@ -64,6 +64,9 @@ export CUDA_VISIBLE_DEVICES=$OMPI_COMM_WORLD_LOCAL_RANK
 exec $*
 ```
 and then `mpirun -n 64 ./gpu_select bench_dolfinx ...`
+On nodes with multiple GPUs there will also be NUMA effects,
+so correct binding of CPUs to MPI processes is also important.
+GPU-aware MPI is required for transfer between devices.
 
 ### Command-line arguments
 
