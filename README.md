@@ -92,7 +92,7 @@ Some baseline data is shown below.
 
 * LUMI-G (MI-250X)
 
-### Throughput in GDoFs/s
+### Throughput in GDoFs/s for 1-16 nodes (8-128 GCDs)
 
 |Operation|1|2|4|8|16|
 |---------|-|-|-|-|--|
