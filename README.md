@@ -61,13 +61,17 @@ Stable
 **Important:** All results submitted should be based on the following
   repository commits:
 
-- benchmark-dolfinx repository: [893667c](https://github.com/ukri-bench/benchmark-dolfinx/commit/893667c40afa6613b5560e5c02de333b06054cc1)
-- dolfinx repository: *tag v0.10.0.post5*
-[cbed920](https://github.com/FEniCS/dolfinx/commit/cbed920223f5e79ac44e88193c108f46bf945b00)
+#### Benchmark repository
+
+- benchmark-dolfinx repository:
+  [893667c](https://github.com/ukri-bench/benchmark-dolfinx/commit/893667c40afa6613b5560e5c02de333b06054cc1)
+
+#### Core FEniCS repositories
+
+- dolfinx repository: *tag v0.10.0.post4* [ac47595](https://github.com/FEniCS/dolfinx/commit/ac47595b23119b1e8ef45c7cdd9b2f085772d63c)
 - ffcx repository: *tag v0.10.1.post0* [009c0e7](https://github.com/FEniCS/ffcx/commit/009c0e75776314689be039b19eeffad6a1a2817f)
 - basix repository: *tag v0.10.0.post0* [433fb7f](https://github.com/FEniCS/basix/commit/433fb7f60f8511e16bcbb403870867d20a69fb4a)
-- ufl repository: *tag 2025.2.1* []()
-
+- ufl repository: *tag 2025.2.0* [a53832a](https://github.com/FEniCS/ufl/commit/a53832a7700af019d369406db5fc5e7c2b4311c2)
 
 ### Permitted modifications
 
@@ -91,6 +95,15 @@ Detailed build instructions can be found in the benchmark source
 code at:
 
 - [https://github.com/ukri-bench/benchmark-dolfinx/blob/main/README.md].
+
+The following configurations have been tested using the `spack`
+installation method described in the repository:
+
+- [LUMI-G](https://docs.lumi-supercomputer.eu/hardware/lumig/): ROCm
+  6.3.4, GCC 14.3.0, HPE Cray MPICH 8.1.32
+- [CSD3](https://www.csd3.cam.ac.uk/): CUDA 12.9.1, GCC 13.4.0,
+  OpenMPI 4.1.1+CUDA
+- [Isambard](https://docs.isambard.ac.uk/) CUDA 12.9.0, GCC 14.3.0, HPE Cray MPICH 8.1.32
 
 ## Running the benchmark
 
@@ -137,22 +150,9 @@ Some baseline data is shown below.
 
 |Operation|1|2|4|8|16|
 |---------|-|-|-|-|--|
-|mat comp|5.7797|8.10161|12.5999|19.2768|29.68|
 |Q3 1M|17.328|33.2159|58.6681|114.966|225.56|
 |Q6 1M|21.1168|38.4989|51.486|73.6816|195.58|
 |Q3 10M|18.9448|36.0356|67.4767|137.571|262.282|
 |Q6 10M|26.5277|50.4899|94.0343|142.381|371.053|
 |Q3 60M|19.6491|38.9419|73.6595|147.589|299.465|
 |Q6 60M|28.0689|55.0029|103.26|197.221|415.822|
-
-### MI300A cluster: Throughput in GDoFs/s for 1-8 nodes (4-32 GPUs)
-
-|Operation|1|2|4|8|
-|---------|-|-|-|-|
-|mat comp|3.70142|6.52107|11.9579|20.8933|
-|Q3 1M|24.4511|44.277|79.539|154.18|
-|Q6 1M|27.7874|49.2628|77.3741|127.325|
-|Q3 10M|48.2874|92.4112|183.177|347.873|
-|Q6 10M|53.7815|104.291|194.774|359.522|
-|Q3 100M|45.5119|82.7794|180.229|348.493|
-|Q6 100M|56.2028|109.023|213.855|417.954|
