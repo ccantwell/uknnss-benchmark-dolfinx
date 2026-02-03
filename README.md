@@ -1,9 +1,34 @@
 # UK NSS DOLFINx Benchmark
 
+**Important:** Please do not contact the benchmark maintainers directly with any questions.
+All questions on the benchmark must be submitted via the procurement response mechanism.
+
 The DOLFINx Benchmark is a performance benchmark for testing
-matrix-free operator evaluation on unstructured hexahedral grids. It
-is available at [https://github.com/ukri-bench/benchmark-dolfinx] with
-an MIT license.
+matrix-free Finite Element operator evaluation on unstructured
+hexahedral grids. It is available at
+[https://github.com/ukri-bench/benchmark-dolfinx] with an MIT license.
+
+For a given set of parameters, DOLFINx Benchmark constructs a mesh
+with a fixed number of degrees-of-freedom (DoFs) per MPI rank. The
+DoFs are initialised from data on the CPU, and transferred to
+GPU as a vector `b`. There is one GPU per MPI rank. On the GPU, one of the following
+two operations is performed repeatedly for a number of repetitions:
+
+- Operator Action: computes the matrix-free operation y=A.b
+- Conjugate Gradient iteration: Operator Action *plus* axpy and global reduce operations.
+
+Each operator iteration involves an overlapped computation-communication round
+as follows:
+
+- Scatter halo data to neighbors
+- Compute GPU kernel on local cells
+- Unpack received halo data
+- Compute GPU kernel on halo cells
+
+The main parameters are: Number of DoFs per GPU (`ndofs`) (range 1000-100000000+), Polynomial
+degree (`degree`) (range 2-7), Floating-point precision (`float`)
+(32/64). The maximum `ndofs` will be determined by the GPU memory
+size, but should be at least 60 million.
 
 ## Status
 
@@ -33,7 +58,20 @@ Stable
 
 ## Building the benchmark
 
+**Important:** All results submitted should be based on the following
+  repository commits:
+
+- benchmark-dolfinx repository: [893667c](https://github.com/ukri-bench/benchmark-dolfinx/commit/893667c40afa6613b5560e5c02de333b06054cc1)
+- dolfinx repository: *tag v0.10.0.post5*
+[cbed920](https://github.com/FEniCS/dolfinx/commit/cbed920223f5e79ac44e88193c108f46bf945b00)
+- ffcx repository: *tag v0.10.1.post0* [009c0e7](https://github.com/FEniCS/ffcx/commit/009c0e75776314689be039b19eeffad6a1a2817f)
+- basix repository: *tag v0.10.0.post0* [433fb7f](https://github.com/FEniCS/basix/commit/433fb7f60f8511e16bcbb403870867d20a69fb4a)
+- ufl repository: *tag 2025.2.1* []()
+
+
 ### Permitted modifications
+
+#### Baseline build
 
 - `benchmark-dolfinx` has been written with standard C++20 and tested with ROCm 6.3.4 and CUDA
 12.9. Modifications for later versions of ROCm and CUDA are permitted,
@@ -49,8 +87,10 @@ reasonably recent versions (gcc-13 or later).
 
 ### Manual build
 
-Detailed build instructions can be found in the (benchmark source
-code)[https://github.com/ukri-bench/benchmark-dolfinx].
+Detailed build instructions can be found in the benchmark source
+code at:
+
+- [https://github.com/ukri-bench/benchmark-dolfinx/blob/main/README.md].
 
 ## Running the benchmark
 
@@ -86,9 +126,9 @@ For benchmarking purposes, use the following options:
   --ndofs=60000000 --json Q6-60M.json`
 
 The matrix comparison should be run on 1 GPU and 4 GPUs with the same
-output (within numerical roundoff precision). *PASS/FAIL*
+output (within numerical roundoff precision). This is a *PASS/FAIL* test.
 The throughput tests can in principle be run on any number of GPU/GCD
-devices. The *Figure of Merit* is the data throughput measured in
+devices. The *Figure of Merit* is the "data throughput" measured in
 GDoFs/s, which is reported at the end of each run, and also saved to
 the JSON files.
 Some baseline data is shown below.
