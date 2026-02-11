@@ -115,19 +115,9 @@ installation method described in the repository:
 
 ## Running the benchmark
 
-The benchmark is designed to run on GPU, but does not do automatic
-allocation of devices. For example, if there are multiple GPUs on the
-same host, they must be presented individually with a "gpu_select"
-script, when running in parallel with MPI. For example:
-```
-#!/bin/bash
-export CUDA_VISIBLE_DEVICES=$OMPI_COMM_WORLD_LOCAL_RANK
-exec $*
-```
-and then `mpirun -n 64 ./gpu_select bench_dolfinx ...`
-On nodes with multiple GPUs there will also be NUMA effects,
-so correct binding of CPUs to MPI processes is also important.
-GPU-aware MPI is required for transfer between devices.
+The benchmark runs with one CPU core per GPU device, and does not do
+automatic allocation of devices. A description of how to bind devices
+and cores is given in the benchmark repository.
 
 ### Command-line arguments
 
