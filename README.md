@@ -14,7 +14,7 @@ DoFs are initialised from data on the CPU, and transferred to
 GPU as a vector `b`. There is one GPU per MPI rank. On the GPU, one of the following
 two operations is performed repeatedly for a number of repetitions:
 
-- Operator Action: computes the matrix-free operation y=A.b
+- Operator Action: computes the matrix-free operation `y=A.b`
 - Conjugate Gradient iteration: Operator Action *plus* axpy and global reduce operations.
 
 Each operator iteration involves an overlapped computation-communication round
@@ -44,6 +44,8 @@ Stable
 ### Software
 
 [https://github.com/ukri-bench/benchmark-dolfinx](https://github.com/ukri-bench/benchmark-dolfinx)
+
+![dependency diagram](diagram.png)
 
 ### Architectures
 
@@ -126,9 +128,8 @@ GPU-aware MPI is required for transfer between devices.
 Command line arguments can be shown with the `-h` option.
 For benchmarking purposes, use the following options:
 
-- Correctness comparison with matrix result: `bench_dolfinx
-  --ndofs=10000 --mat_comp --ndofs_global=100000 --degree=3 --json
-  mat_comp.json`
+- Correctness comparison with matrix result: `bench_dolfinx --mat_comp
+  --ndofs_global=100000 --degree=3 --json mat_comp.json`
 - Throughput at Q3, 10M degrees-of-freedom: `bench_dolfinx --degree=3
   --ndofs=10000000 --json Q3-10M.json`
 - Throughput at Q6, 10M degrees-of-freedom: `bench_dolfinx --degree=6
