@@ -28,7 +28,7 @@ as follows:
 The main parameters are: Number of DoFs per GPU (`ndofs`) (range 1000-100000000+), Polynomial
 degree (`degree`) (range 2-7), Floating-point precision (`float`)
 (32/64). The maximum `ndofs` will be determined by the GPU memory
-size, but should be at least 60 million.
+size, but should be at least 100 million.
 
 ## Status
 
@@ -127,30 +127,38 @@ For benchmarking purposes, use the following options:
 
 - Correctness comparison with matrix result: `bench_dolfinx --mat_comp
   --ndofs_global=100000 --degree=3 --json mat_comp.json`
-- Throughput at Q3, 10M degrees-of-freedom: `bench_dolfinx --degree=3
-  --ndofs=10000000 --json Q3-10M.json`
-- Throughput at Q6, 10M degrees-of-freedom: `bench_dolfinx --degree=6
-  --ndofs=10000000 --json Q6-10M.json`
-- Throughput at Q3, 60M degrees-of-freedom: `bench_dolfinx --degree=3
-  --ndofs=60000000 --json Q3-60M.json`
-- Throughput at Q6, 60M degrees-of-freedom: `bench_dolfinx --degree=6
-  --ndofs=60000000 --json Q6-60M.json`
+- Throughput at Q3, 200M degrees-of-freedom: `bench_dolfinx --degree=3
+  --ndofs=200000000 --json Q3-200M.json`
+- Throughput at Q6, 350M degrees-of-freedom: `bench_dolfinx --degree=6
+  --ndofs=350000000 --json Q6-350M.json`
 
-The matrix comparison should be run on 1 GPU and 4 GPUs with the same
-output (within numerical roundoff precision). This is a *PASS/FAIL* test.
+The matrix comparison should be run on 1 GPU and 8 GPUs with 100000 total dofs (`ndofs_global`).
+the same output (within numerical roundoff precision). This is a *PASS/FAIL* test.
+
 The throughput tests can in principle be run on any number of GPU/GCD
 devices. The *Figure of Merit* is the "data throughput" measured in
 GDoFs/s, which is reported at the end of each run, and also saved to
 the JSON files.
 Some baseline data is shown below.
 
-### LUMI-G (MI250x): Throughput in GDoFs/s for 1-16 nodes (8-128 GCDs)
+### LUMI-G (MI250x): Throughput in GDoFs/s for 2-64 nodes (8-512 GCDs)
 
-|Operation|1|2|4|8|16|
-|---------|-|-|-|-|--|
-|Q3 1M|17.328|33.2159|58.6681|114.966|225.56|
-|Q6 1M|21.1168|38.4989|51.486|73.6816|195.58|
-|Q3 10M|18.9448|36.0356|67.4767|137.571|262.282|
-|Q6 10M|26.5277|50.4899|94.0343|142.381|371.053|
-|Q3 60M|19.6491|38.9419|73.6595|147.589|299.465|
-|Q6 60M|28.0689|55.0029|103.26|197.221|415.822|
+|Operation|2|4|8|16|32|64|
+|---------|-|-|-|--|--|--|
+|Q3 200M|32.4847|63.9487|126.518|245.983|499.028|997.509|
+|Q6 350M|45.5109|89.2596|177.345|349.948|695.995|1327.46|
+
+The throughput increases approximately linearly with the
+device count, and a weak scaling can be obtained by dividing by the
+number of devices, giving an average 1.97 GDoFs/s/device for Q3 200M,
+and 2.74 GDoFs/s/device for Q6 350M.
+
+### Isambard-AI (GH200): Throughput in GDoFs/s for 4-32 nodes (16-128 GPUs)
+
+|Operation|4|8|16|32|
+|---------|-|-|--|--|
+|Q3 300M|64.2997|126.956|257.855|512.411|
+|Q6 500M|100.003|169.147|276.335|505.667|
+
+The throughput per device is an average of 4.00 GDoFs/s/device for Q3 300M,
+and 4.95 GDoFs/s/device for Q6 500M.
