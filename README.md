@@ -131,20 +131,24 @@ Command line arguments can be shown with the `-h` option.
 For benchmarking purposes, use the following options:
 
 - Correctness comparison with matrix result: `bench_dolfinx --mat_comp
-  --ndofs_global=100000 --degree=3 --json mat_comp.json`
+  --ndofs_global=10000 --degree=3 --json mat_comp.json`
 - CG throughput at Q3, 200M degrees-of-freedom: `bench_dolfinx --degree=3 --cg
   --ndofs=200000000 --json Q3-200M.json`
 - CG throughput at Q6, 350M degrees-of-freedom: `bench_dolfinx --degree=6 --cg
   --ndofs=350000000 --json Q6-350M.json`
 
-The matrix comparison should be run on 1 GPU and 8 GPUs with 100000 total dofs (`ndofs_global`).
-the same output (within numerical roundoff precision). This is a *PASS/FAIL* test.
+The matrix comparison should be run on 1 GPU and 8 GPUs with 10000 total dofs (`ndofs_global`).
+the same output (within numerical roundoff precision). The relative
+norm of the error should be on the order of the machine precision
+(<1e-14 for double precision). For a problem with 10000 dofs, the
+numerical value of the `ynorm` and `znorm` should be 1.141577508 to 9
+decimal places. The console output and the JSON file should be reported.
 
 The throughput tests can in principle be run on any number of GPU/GCD
 devices. The *Figure of Merit* is the "data throughput" measured in
 GDoFs/s, which is reported at the end of each run, and also saved to
-the JSON files. The problem size can be increased to use more GPU
-memory. The values above are for devices with 64GB.
+the JSON files, which should be reported. The problem size can be
+increased to use more GPU memory. The values above are for devices with 64GB.
 Some baseline data is shown below.
 
 ### LUMI-G (MI250x): Throughput in GDoFs/s for 2-64 nodes (8-512 GCDs)
