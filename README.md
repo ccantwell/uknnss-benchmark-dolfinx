@@ -137,8 +137,9 @@ For benchmarking purposes, use the following options:
 - CG throughput at Q6, 350M degrees-of-freedom: `bench_dolfinx --degree=6 --cg
   --ndofs=350000000 --json Q6-350M.json`
 
-The matrix comparison should be run on 1 GPU and 8 GPUs with 10000 total dofs (`ndofs_global`).
-the same output (within numerical roundoff precision). The relative
+The matrix comparison should be run on 1 GPU and 8 GPUs with 10000
+total dofs (`ndofs_global`), and in both cases should produce the same
+output `ynorm` and `znorm` (within numerical roundoff precision). The relative
 norm of the error should be on the order of the machine precision
 (<1e-14 for double precision). For a problem with 10000 dofs, the
 numerical value of the `ynorm` and `znorm` should be 1.141577508 to 9
