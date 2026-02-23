@@ -1,8 +1,10 @@
 ## Complete manual installation instructions
 
-The `benchmark-dolfinx` code depends on `dolfinx` and `ffcx` which are part of the FEniCS software suite.
+The `benchmark-dolfinx` code depends on `dolfinx`, `basix` and `ffcx` which are part of the FEniCS software suite.
 
-### Installing `ffcx`
+### Installing `ffcx` and `basix`
+
+`basix` is a C++/Python package, and can be installed using `pip`, e.g. `pip install git+https://git@github.com/FEniCS/basix@v0.10.0`
 
 `ffcx` is a Python package, and can be installed using `pip`, e.g. `pip install git+https://git@github.com/FEniCS/ffcx@v0.10.0`
 
@@ -36,13 +38,24 @@ make -j 4
 make install
 ```
 
+The benchmark is built on top of `dolfinx`, e.g.
+
+```
+cd
+git clone https://git@github.com/ukri-bench/benchmark-dolfinx
+cd benchmark-dolfinx
+mkdir build && cd build
+cmake -DCUDA_ARCH=89 ../src
+make -j 4
+```
+
 ## Example installation on Ubuntu 24.04
 
 The following set of commands has been tested on a clean Ubuntu 24.04
 container. This will build a CPU version of the benchmark. In order to
-build the required GPU version, appropriate CUDA or ROCm packages must
-be installed becore building `benchmark-dolfinx` with `CUDA_ARCH` or
-`HIP_ARCH` flags - see main instructions.
+build the required GPU version, *appropriate CUDA or ROCm packages must
+be installed becore building* `benchmark-dolfinx` with `CUDA_ARCH` or
+`HIP_ARCH` flags - see [main instructions](https://github.com/ukri-bench/benchmark-dolfinx/README.md).
 
 ```
 # Install required Ubuntu packages
