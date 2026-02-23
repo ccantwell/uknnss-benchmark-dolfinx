@@ -38,6 +38,8 @@ make -j 4
 make install
 ```
 
+### Building the benchmark
+
 The benchmark is built on top of `dolfinx`, e.g.
 
 ```
