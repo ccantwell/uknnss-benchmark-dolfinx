@@ -55,7 +55,7 @@ The following set of commands has been tested on a clean Ubuntu 24.04
 container. This will build a CPU version of the benchmark. In order to
 build the required GPU version, *appropriate CUDA or ROCm packages must
 be installed becore building* `benchmark-dolfinx` with `CUDA_ARCH` or
-`HIP_ARCH` flags - see [main instructions](https://github.com/ukri-bench/benchmark-dolfinx/README.md).
+`HIP_ARCH` flags - see [main instructions](https://github.com/ukri-bench/benchmark-dolfinx/blob/main/README.md).
 
 ```
 # Install required Ubuntu packages
