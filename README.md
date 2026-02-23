@@ -109,6 +109,8 @@ code at:
 
 - [https://github.com/ukri-bench/benchmark-dolfinx/blob/main/README.md].
 
+Also, an [Ubuntu 24.04 installation example is available](installation.md).
+
 The following configurations have been tested using the `spack`
 installation method described in the repository:
 
