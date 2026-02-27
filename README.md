@@ -101,19 +101,12 @@ the recommended choice.
 Detailed build instructions can be found in the benchmark source
 code at:
 
-- [https://github.com/ukri-bench/benchmark-dolfinx/blob/main/README.md].
+- [https://github.com/ukri-bench/benchmark-dolfinx/blob/main/README.md],
+  including some instructions for various workarounds on specific
+  systems.
 
 There are also further [installation instructions](installation.md),
 including a basic install on Ubuntu 24.04.
-
-#### CUDA 13 and Cray workarounds
-
-- The dependency `basix` requires BLAS libraries. On Cray systems using `cray-libsci` these need to be specified to `cmake`.
-This is encoded in the spack recipe at [https://github.com/FEniCS/spack-fenics/blob/e8b5e9fdd299889b4cb6209559de04b9289c20ab/spack_repo/fenics/packages/fenics_basix/package.py].
-
-- The version of `mdspan.hpp` distributed in `basix` v0.10.0 is not compatible with CUDA 13. A patch is available at [https://github.com/FEniCS/spack-fenics/blob/07b9fd0dfd3d878c383ed8cba9e2a10fa52b478a/spack_repo/fenics/packages/fenics_basix/mdspan.patch], which should be applied if using CUDA 13.0 or higher.
-
-- A C++20 compiler capable of handling `std::format` is required. On some systems, it is necessary to explicitly pass this to `nvcc` or `hipcc` through a command line argument, e.g. `--gcc-toolchain=/opt/rh/gcc-toolset-13/root/usr`.
 
 ### Tested spack configurations
 
