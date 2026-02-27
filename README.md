@@ -215,7 +215,7 @@ is the reference performance required.
 #### Target performance
 
 For target performance, use the same methodology, and expect to obtain
-an improved figure of 5.5 GDoFs/s/device at 128 GPU scale or greater.
+an improved figure of **5.5 GDoFs/s/device** at 128 GPU scale or greater.
 
 ## Reporting Results
 
