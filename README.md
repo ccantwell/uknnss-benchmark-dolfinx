@@ -1,4 +1,4 @@
-# UK NSS DOLFINx Benchmark
+# UK NNSS DOLFINx Benchmark
 
 **Important:** Please do not contact the benchmark maintainers directly with any questions.
 All questions on the benchmark must be submitted via the procurement response mechanism.
@@ -225,3 +225,9 @@ For both the baseline build and the optimised build. The offeror should provide 
 - The job submission scripts and launch wrapper scripts used (if any).
 - A list of options passed to the benchmark code.
 - All output files from running the benchmarks.
+
+## License
+
+This benchmark description and associated files are released under the
+MIT license.
+
