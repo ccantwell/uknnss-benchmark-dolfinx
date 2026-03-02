@@ -128,8 +128,8 @@ installation method described in the repository:
 
 ## Running the benchmark
 
-The benchmark runs with one CPU core per GPU device, and does not do
-automatic allocation of devices. A description of how to bind devices
+The benchmark runs with one MPI process per GPU device, and does not automatically
+bind MPI process to GPU devices. A description of how to bind devices
 and cores is given in the benchmark repository.
 Command line arguments can be shown with the `-h` option.
 
