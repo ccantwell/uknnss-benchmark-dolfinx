@@ -184,14 +184,14 @@ Isambard-AI.
 
 ### Required data
 
-- **Target:** The benchmark must be run on a minimum of 128 GPU/GCD with minimum problem
-  sizes of 200M DoFs at Q3 and 350M DoFs at Q6. Performance may improve with larger problems
-  sizes, subject to memory available.
+- **Target:** The benchmark must be run on a minimum of 128 GPU (there can be multiple GCD per GPU)
+  with minimum problem sizes of 200M DoFs at Q3 and 350M DoFs at Q6. Performance may improve with
+  larger problems sizes, subject to memory available.
 - **Reference:** The benchmark must achieve a minimum FoM of *3.98 GDoFs/s/device*
 
 Data should be provided to complete the following table:
 
-| `--degree` | `--nodofs-global` | #GPU/GCD | GDoF/s | GDoF/s/device |
+| `--degree` | `--nodofs-global` | #GPU | GDoF/s | GDoF/s/device |
 |--:|--:|--:|--:|--:|
 | Q3 | (min. 200M) | (min. 128) | | |
 | Q6 | (min. 350M) | (min. 128) | | |
@@ -199,34 +199,40 @@ Data should be provided to complete the following table:
 
 ### Example performance data
 
-#### LUMI-G (MI250x): Throughput in GDoFs/s for 2-64 nodes (8-512 GCDs)
+#### LUMI-G (MI250x): Throughput in GDoFs/s for 2-64 nodes (8-256 GPUs)
+
 Problem size of Q3 200M and Q6 350M were chosen to fit in the 64GB
 memory constraint of the devices.
 
+8 MPI processes per node (2 MPI processes per GPU, 1 MPI process per GCD).
+
 | `--degree` | `--nodofs-global` | #GPU/GCD | GDoF/s | GDoF/s/device |
 |--:|--:|--:|--:|--:|
-| Q3 | 200M | 16 | 32.4847 | 2.030 |
-| Q6 | 350M | 16 | 45.5109 | 2.844 |
-| FoM | N/A | 16 | N/A | 2.437 |
-| Q3 | 200M | 32 | 63.9487 | 1.998 |
-| Q6 | 350M | 32 | 89.2596 | 2.789 |
-| FoM | N/A | 32 | N/A | 2.393 |
-| Q3 | 200M | 64 | 126.518 | 1.977 |
-| Q6 | 350M | 64 | 177.345 | 2.771 |
-| FoM | N/A | 64 | N/A | 2.374 |
-| Q3 | 200M | 128 | 245.983 | 1.922 |
-| Q6 | 350M | 128 | 349.948 | 2.734 |
-| FoM | N/A | 128 | N/A | 2.328 |
-| Q3 | 200M | 256 | 499.028 | 1.949 |
-| Q6 | 350M | 256 | 695.995 | 2.719 |
-| FoM | N/A | 256 | N/A | 2.334 |
-| Q3 | 200M | 512 | 997.509 | 1.948 |
-| Q6 | 350M | 512 | 1327.46 | 2.593 |
-| FoM | N/A | 512 | N/A | 2.271 |
+| Q3 | 200M | 8 | 32.4847 | 4.061 |
+| Q6 | 350M | 8 | 45.5109 | 5.689 |
+| FoM | N/A | 8 | N/A | 4.875 |
+| Q3 | 200M | 16 | 63.9487 | 3.997 |
+| Q6 | 350M | 16 | 89.2596 | 5.579 |
+| FoM | N/A | 16 | N/A | 4.788 |
+| Q3 | 200M | 32 | 126.518 | 3.954 |
+| Q6 | 350M | 32 | 177.345 | 5.542 |
+| FoM | N/A | 32 | N/A | 4.748 |
+| Q3 | 200M | 64 | 245.983 | 3.843 |
+| Q6 | 350M | 64 | 349.948 | 5.468 |
+| FoM | N/A | 64 | N/A | 4.656 |
+| Q3 | 200M | 128 | 499.028 | 3.899 |
+| Q6 | 350M | 128 | 695.995 | 5.437 |
+| FoM | N/A | 128 | N/A | 4.688 |
+| Q3 | 200M | 256 | 997.509 | 3.897 |
+| Q6 | 350M | 256 | 1327.46 | 5.185 |
+| FoM | N/A | 256 | N/A | 4.541 |
 
 ### Isambard-AI (GH200): Throughput in GDoFs/s for 4-32 nodes (16-128 GPUs)
+
 Problem size of Q3 300M and Q6 500M were chosen to fit in the 96GB
 memory constraint of the devices.
+
+4 MPI processes per node (1 MPI process per GPU).
 
 | `--degree` | `--nodofs-global` | #GPU/GCD | GDoF/s | GDoF/s/device |
 |--:|--:|--:|--:|--:|
@@ -251,7 +257,7 @@ For both the baseline build and the optimised build. The offeror should provide 
 - The compilation process and configuration settings used for the benchmark results - including makefiles, compiler versions, dependencies used and their versions or Spack environment configuration and lock files if Spack is used.
 - The job submission scripts and launch wrapper scripts used (if any).
 - A list of options passed to the benchmark code.
-- All output files from running the benchmarks.
+- All output files from running the benchmarks and the correctness check.
 
 ## License
 
