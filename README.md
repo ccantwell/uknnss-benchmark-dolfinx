@@ -227,7 +227,7 @@ memory constraint of the devices.
 | Q6 | 350M | 256 | 1327.46 | 5.185 |
 | FoM | N/A | 256 | N/A | 4.541 |
 
-### Isambard-AI (GH200): Throughput in GDoFs/s for 4-128 nodes (16-512 GPUs)
+#### Isambard-AI (GH200): Throughput in GDoFs/s for 4-128 nodes (16-512 GPUs)
 
 Problem size of Q3 300M and Q6 500M were chosen to fit in the 96GB
 memory constraint of the devices.
