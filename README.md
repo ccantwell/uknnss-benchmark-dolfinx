@@ -206,7 +206,7 @@ memory constraint of the devices.
 
 8 MPI processes per node (2 MPI processes per GPU, 1 MPI process per GCD).
 
-| `--degree` | `--nodofs-global` | #GPU/GCD | GDoF/s | GDoF/s/device |
+| `--degree` | `--nodofs-global` | #GPU | GDoF/s | GDoF/s/device |
 |--:|--:|--:|--:|--:|
 | Q3 | 200M | 8 | 32.4847 | 4.061 |
 | Q6 | 350M | 8 | 45.5109 | 5.689 |
@@ -234,7 +234,7 @@ memory constraint of the devices.
 
 4 MPI processes per node (1 MPI process per GPU).
 
-| `--degree` | `--nodofs-global` | #GPU/GCD | GDoF/s | GDoF/s/device |
+| `--degree` | `--nodofs-global` | #GPU | GDoF/s | GDoF/s/device |
 |--:|--:|--:|--:|--:|
 | Q3 | 200M | 16 | 64.2997 | 4.019 |
 | Q6 | 350M | 16 | 100.003 | 6.250 |
