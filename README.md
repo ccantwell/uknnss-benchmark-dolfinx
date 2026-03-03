@@ -248,6 +248,13 @@ memory constraint of the devices.
 | Q3 | 200M | 128 | 512.411 | 4.003 |
 | Q6 | 350M | 128 | 505.667 | 3.951 |
 | FoM | N/A | 128 | N/A | 3.977*  |
+| Q3 | 200M | 256 | 1002.64 | 3.916 |
+| Q6 | 350M | 256 | 973.149 | 3.801 |
+| FoM | N/A | 256 | N/A | 3.859 |
+| Q3 | 200M | 512 | 1980.19 | 3.867 |
+| Q6 | 350M | 512 | 1801.89 | 3.519 |
+| FoM | N/A | 512 | N/A | 3.693 |
+
 
 ## Reporting Results
 
@@ -263,4 +270,3 @@ For both the baseline build and the optimised build. The offeror should provide 
 
 This benchmark description and associated files are released under the
 MIT license.
-
