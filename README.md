@@ -191,7 +191,7 @@ Isambard-AI.
 
 Data should be provided to complete the following table:
 
-| `--degree` | `--nodofs-global` | #GPU | GDoF/s | GDoF/s/device |
+| `--degree` | `--ndofs` | #GPU | GDoF/s | GDoF/s/device |
 |--:|--:|--:|--:|--:|
 | Q3 | (min. 200M) | (min. 128) | | |
 | Q6 | (min. 350M) | (min. 128) | | |
@@ -206,7 +206,7 @@ memory constraint of the devices.
 
 8 MPI processes per node (2 MPI processes per GPU, 1 MPI process per GCD).
 
-| `--degree` | `--nodofs-global` | #GPU | GDoF/s | GDoF/s/device |
+| `--degree` | `--ndofs` | #GPU | GDoF/s | GDoF/s/device |
 |--:|--:|--:|--:|--:|
 | Q3 | 200M | 8 | 32.4847 | 4.061 |
 | Q6 | 350M | 8 | 45.5109 | 5.689 |
