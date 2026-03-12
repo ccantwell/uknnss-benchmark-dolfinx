@@ -165,18 +165,17 @@ For the purposes of benchmarking, the overall Figure of Merit (FoM) is
 defined as the *throughput per device* for Q3 and Q6 CG computation,
 as shown in the command lines above. To obtain a combined overall
 metric, the mean throughput (Q3 GDoFs/s/device + Q6 GDoFs/s/device)/2
-is used. **This must be achieved at a scale of 128 GPU/GCD or more**.
-An example calculation is shown below.
+is used. An example calculation is shown below.
 
 The minimum problem size allowed is 200M DoFs at Q3 and 350M DoFs at
 Q6. Performance may improve with larger problems sizes, subject to
 memory available.
 
-The throughput tests can in principle be run on any number of GPU/GCD
-devices. The problem size can be increased to use more GPU memory.
+The throughput tests can in principle be run on any number of GPU. The
+problem size can be increased to use more GPU memory.
 
 As an example, we use the 128 GPU figures from
-Isambard-AI.
+IsambardAI.
 
 - Q3 throughput is 512.411 GDoFs/s, equating to 512.411/128 = 4.003 GDoFs/s/device
 - Q6 thoughput is 505.677 GDoFs/s, giving 505.677/128 = 3.951 GDoFs/s/device.
@@ -184,18 +183,37 @@ Isambard-AI.
 
 ### Required data
 
-- **Target:** The benchmark must be run on a minimum of 128 GPU (there can be multiple GCD per GPU)
-  with minimum problem sizes of 200M DoFs at Q3 and 350M DoFs at Q6. Performance may improve with
-  larger problems sizes, subject to memory available.
-- **Reference:** The benchmark must achieve a minimum FoM of *3.98 GDoFs/s/device*
+Data should be provided to complete the following table. Optionally, if partitions
+with different hardware (e.g. processor/GPU type, interconnect) are provided, then the
+benchmark should also be run on the maximum possible size in each partition and the
+results reported in the same format as the table below.
 
-Data should be provided to complete the following table:
+In all cases, the bidder is free to choose the number of MPI processes per GPU
+that gives the best performance for that case.
 
-| `--degree` | `--ndofs` | #GPU | GDoF/s | GDoF/s/device |
-|--:|--:|--:|--:|--:|
-| Q3 | (min. 200M) | (min. 128) | | |
-| Q6 | (min. 350M) | (min. 128) | | |
-| FoM | N/A | N/A | N/A | |
+| `--degree` | `--ndofs` | #GPU | # MPI per GPU | Baseline GDoF/s/device | Optimised GDoF/s/device |
+|--:|--:|--:|--:|--:|--:|
+| Q3 | (min. 200M) | 16  |  |   |   |
+| Q6 | (min. 350M) | 16  |  |   |   |
+| FoM | N/A | 16 |  |   |   |
+| Q3 | (min. 200M) | 32 |  |   |   |
+| Q6 | (min. 350M) | 32 |  |   |   |
+| FoM | N/A | 32 |  |   |   |
+| Q3 | (min. 200M) | 64 |  |   |   |
+| Q6 | (min. 350M) | 64 |  |   |   |
+| FoM | N/A | 64 |  |   |   |
+| Q3 | (min. 200M) | 128 |  |   |   |
+| Q6 | (min. 350M) | 128 |  |   |   |
+| FoM | N/A | 128 |   |   |   |
+| Q3 | (min. 200M) | 256 |  |   |   |
+| Q6 | (min. 350M) | 256 |  |   |   |
+| FoM | N/A | 256 |  |   |   |
+| Q3 | (min. 200M) | 512 | |   |   |
+| Q6 | (min. 350M) | 512   |   |   |
+| FoM | N/A | 512 |  |   |   |
+| Q3 | (min. 200M) | 1024 |  |   |   |
+| Q6 | (min. 350M) | 1024 |  |   |   |
+| FoM | N/A | 1024 |  |   |   |
 
 ### Example performance data
 
