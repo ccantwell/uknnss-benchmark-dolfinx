@@ -27,18 +27,6 @@ degree (`degree`) (range 2-7), Floating-point precision (`float`)
 (32/64). The maximum `ndofs` will be determined by the GPU memory
 size, but should be at least 100 million.
 
-## Status
-
-Stable
-
-## Maintainers
-
-- Chris Richardson
-- Garth Wells
-
-**Important:** Please do not contact the benchmark maintainers directly with any questions.
-All questions on the benchmark must be submitted via the procurement response mechanism.
-
 ## Software
 
 [https://github.com/ukri-bench/benchmark-dolfinx](https://github.com/ukri-bench/benchmark-dolfinx)
