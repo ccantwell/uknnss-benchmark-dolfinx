@@ -134,26 +134,48 @@ For benchmarking purposes, use the following options:
 
 ### Correctness testing
 
-To test correctness, the following configuration should be run:
+Correctness can be verified using the [validate.py](./validate.py) script with the following configuration:
+```
+bench_dolfinx --mat_comp --ndofs_global=10000 --degree=3 \
+    --json output.json | tee output.out
+```
 
-- Correctness comparison with matrix result: `bench_dolfinx --mat_comp
-  --ndofs_global=10000 --degree=3 --json mat_comp.json`
+The validation script should produce the following output:
+```
+./validate output.json output.out
+ 
+# DOLFINx benchmark validation
+ 
+                   P : 3
+                ndof : 10000
+               nreps : 1000
+         scalar size : 64
+ 
+  ===========================================
+  CORRECTNESS TEST CASE                      
+              y_norm : 1.1415775083651327
+              z_norm : 1.141577508365133
+  ===========================================
+ 
+  MAT COMP performance: 0.2957402083152624 Gdofs/s
+ 
+  Validation: PASSED
+ 
+
+```
 
 The matrix comparison must be run on 1 GPU and 8 GPUs with 10000
 total dofs (`ndofs_global`), and in both cases should produce the same
-output `ynorm` and `znorm` (within numerical roundoff precision). The relative
-norm of the error should be on the order of the machine precision
-(<1e-14 for double precision). For a problem with 10000 dofs, the
-numerical value of the `ynorm` and `znorm` should be 1.141577508 to 9
-decimal places. The console output and the JSON file should be reported.
+output `ynorm` and `znorm` (within numerical roundoff precision). 
+For a problem with 10000 dofs, the numerical value of the `ynorm` and
+`znorm` should be 1.141577508 to 9 decimal places. The console output
+and the JSON file should be reported.
 
 ### Performance results
 
-For the purposes of benchmarking, the overall Figure of Merit (FoM) is
-defined as the *throughput per device* for Q3 and Q6 CG computation,
-as shown in the command lines above. To obtain a combined overall
-metric, the mean throughput (Q3 GDoFs/s/device + Q6 GDoFs/s/device)/2
-is used. An example calculation is shown below.
+In addition to testing for correctness, `validate.py` will also print the Computation Rate, which is the sole FoM for the benchmark.
+The Computation Rate printed by `validate.py` corresponds to the
+total throughput in billion degrees of freedom per second (Gdofs/s).
 
 The minimum problem size allowed is 200M DoFs at Q3 and 350M DoFs at
 Q6. Performance may improve with larger problems sizes, subject to
@@ -161,13 +183,6 @@ memory available.
 
 The throughput tests can in principle be run on any number of GPU. The
 problem size can be increased to use more GPU memory.
-
-As an example, we use the 128 GPU figures from
-IsambardAI.
-
-- Q3 throughput is 512.411 GDoFs/s, equating to 512.411/128 = 4.003 GDoFs/s/device
-- Q6 thoughput is 505.677 GDoFs/s, giving 505.677/128 = 3.951 GDoFs/s/device.
-- Taking the mean, we get a combined performance of: (4.003 + 3.951)/2 = **3.977 GDoFs/s/device**.
 
 ### Reference data
 
@@ -182,22 +197,16 @@ memory constraint of the devices.
 |--:|--:|--:|--:|--:|
 | Q3 | 200M | 8 | 32.4847 | 4.061 |
 | Q6 | 350M | 8 | 45.5109 | 5.689 |
-| FoM | N/A | 8 | N/A | 4.875 |
 | Q3 | 200M | 16 | 63.9487 | 3.997 |
 | Q6 | 350M | 16 | 89.2596 | 5.579 |
-| FoM | N/A | 16 | N/A | 4.788 |
 | Q3 | 200M | 32 | 126.518 | 3.954 |
 | Q6 | 350M | 32 | 177.345 | 5.542 |
-| FoM | N/A | 32 | N/A | 4.748 |
 | Q3 | 200M | 64 | 245.983 | 3.843 |
 | Q6 | 350M | 64 | 349.948 | 5.468 |
-| FoM | N/A | 64 | N/A | 4.656 |
 | Q3 | 200M | 128 | 499.028 | 3.899 |
 | Q6 | 350M | 128 | 695.995 | 5.437 |
-| FoM | N/A | 128 | N/A | 4.688 |
 | Q3 | 200M | 256 | 997.509 | 3.897 |
 | Q6 | 350M | 256 | 1327.46 | 5.185 |
-| FoM | N/A | 256 | N/A | 4.541 |
 
 #### Isambard-AI (GH200): Throughput in GDoFs/s for 4-256 nodes (16-1024 GPUs)
 
@@ -210,25 +219,18 @@ memory constraint of the devices.
 |--:|--:|--:|--:|--:|
 | Q3 | 300M | 16 | 64.2997 | 4.019 |
 | Q6 | 500M | 16 | 100.003 | 6.250 |
-| FoM | N/A | 16 | N/A | 5.135 |
 | Q3 | 300M | 32 | 126.956 | 3.967 |
 | Q6 | 500M | 32 | 169.147 | 5.286 |
-| FoM | N/A | 32 | N/A | 4.627 |
 | Q3 | 300M | 64 | 257.855 | 4.029 |
 | Q6 | 500M | 64 | 276.335 | 4.318 |
-| FoM | N/A | 64 | N/A | 4.174 |
 | Q3 | 300M | 128 | 512.411 | 4.003 |
 | Q6 | 500M | 128 | 505.667 | 3.951 |
-| FoM | N/A | 128 | N/A | 3.977  |
 | Q3 | 300M | 256 | 1002.64 | 3.916 |
 | Q6 | 500M | 256 | 973.149 | 3.801 |
-| FoM | N/A | 256 | N/A | 3.859 |
 | Q3 | 300M | 512 | 1980.19 | 3.867 |
 | Q6 | 500M | 512 | 1801.89 | 3.519 |
-| FoM | N/A | 512 | N/A | 3.693 |
 | Q3 | 300M | 1024 | 3781.04 | 3.692 |
 | Q6 | 500M | 1024 | 3410.36 | 3.330 |
-| FoM | N/A | 1024 | N/A | 3.511 |
 
 
 ## License
