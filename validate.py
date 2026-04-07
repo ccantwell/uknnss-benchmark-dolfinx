@@ -90,10 +90,10 @@ if d["is_mat_comp"]:
         valid = False
 
     if valid:
-        print(f'\n  MAT COMP performance: {d["gdofs"]} Gflops/s')
+        print(f'\n  MAT COMP performance: {d["gdofs"]} Gdofs/s')
 
 if d["is_cg"] and valid:
-    print(f'\n  CG performance: {d["gdofs"]} Gflops/s')
+    print(f'\n  CG performance: {d["gdofs"]} Gdofs/s')
 
 print("\n  Validation:", ("PASSED" if valid else "FAILED") )
 print()
