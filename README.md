@@ -123,12 +123,22 @@ Command line arguments can be shown with the `-h` option.
 
 ### Benchmark execution
 
-For benchmarking purposes, use the following options:
+For benchmarking purposes, the following combinations of options are needed:
 
-- CG throughput at Q3, 200M degrees-of-freedom: `bench_dolfinx --degree=3 --cg
-  --ndofs=200000000 --json Q3-200M.json`
-- CG throughput at Q6, 350M degrees-of-freedom: `bench_dolfinx --degree=6 --cg
-  --ndofs=350000000 --json Q6-350M.json`
+- Stencil throughput at Q3, 200M degrees-of-freedom:
+  ```
+  bench_dolfinx --mat_comp --degree=3 --ndofs=200000000 \
+      --json MAT-Q3-200M.json | tee MAT-Q3-200M.out
+  ```
+- Stencil throughput at Q6, 350M degrees-of-freedom:
+  ```
+  bench_dolfinx --mat_comp --degree=6 --ndofs=350000000 \
+      --json MAT-Q6-350M.json | tee MAT-Q6-350M.out
+  ```
+- CG throughput at Q3, 200M degrees-of-freedom:
+  ```
+  bench_dolfinx --cg --degree=3 --ndofs=200000000 \
+      --json CG-Q3-200M.json | tee CG-Q3-200M.out
 
 ## Results
 
