@@ -181,12 +181,14 @@ The validation script should produce the following output:
 
 ```
 
-The matrix comparison must be run on 1 GPU and 8 GPUs with 10000
+Sanity check: The matrix comparison must be run on 1 GPU and 8 GPUs with 10000
 total dofs (`ndofs_global`), and in both cases should produce the same
 output `ynorm` and `znorm` (within numerical roundoff precision). 
 For a problem with 10000 dofs, the numerical value of the `ynorm` and
 `znorm` should be 1.141577508 to 9 decimal places. The console output
 and the JSON file should be reported.
+
+For the acceptance tests, all GPU-based computations must yield the same answer as a CPU-based variant subject to numerical roundoffs.
 
 ### Performance results
 
@@ -194,12 +196,14 @@ In addition to testing for correctness, `validate.py` will also print the Comput
 The Computation Rate printed by `validate.py` corresponds to the
 total throughput in billion degrees of freedom per second (Gdofs/s).
 
+<!--
 The minimum problem size allowed is 200M DoFs at Q3 and 350M DoFs at
 Q6. Performance may improve with larger problems sizes, subject to
 memory available.
 
 The throughput tests can in principle be run on any number of GPU. The
 problem size can be increased to use more GPU memory.
+-->
 
 ### Reference data
 
