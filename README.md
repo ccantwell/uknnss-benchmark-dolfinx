@@ -116,14 +116,16 @@ Alternatively [manual installation instructions](installation.md) on Ubuntu 24.0
 
 ## Running the benchmark
 
-The benchmark runs with one MPI process per GPU device, and does not automatically
+We use two flavours of DOLFINx: a solve stencil-based one (basically a mat-vec) and a full CG solver including collectives. We also use DOLFINx with and without GPU support.
+
+For GPU-based runs, the benchmark runs with one MPI process per GPU device, and it does not automatically
 bind MPI process to GPU devices. A description of how to bind devices
 and cores is given in the benchmark repository.
 Command line arguments can be shown with the `-h` option.
 
 ### Benchmark execution
 
-For benchmarking purposes, the following combinations of options are needed:
+For benchmarking purposes, combinations similar to the following options are needed:
 
 - Stencil throughput at Q3, 200M degrees-of-freedom:
   ```
@@ -139,6 +141,11 @@ For benchmarking purposes, the following combinations of options are needed:
   ```
   bench_dolfinx --cg --degree=3 --ndofs=200000000 \
       --json CG-Q3-200M.json | tee CG-Q3-200M.out
+
+The precise run configurations are to be taken from the data spreadsheets enlisting the assessment configurations.
+  
+<i>TODO</i> We do not have a description of CPU vs GPU-based runs. However, we need both.
+
 
 ## Results
 
