@@ -116,16 +116,39 @@ Alternatively [manual installation instructions](installation.md) on Ubuntu 24.0
 
 ## Running the benchmark
 
-We use two flavours of DOLFINx: a solve stencil-based one (basically a mat-vec) and a full CG solver including collectives. We also use DOLFINx with and without GPU support.
+We use two flavours of DOLFINx: application of a stencil-based operator (mathematically a matrix-vector multiplication), and; a full conjugate gradient solver, which includes MPI collective operations. We also use DOLFINx with and without GPU support.
 
 For GPU-based runs, the benchmark runs with one MPI process per GPU device, and it does not automatically
 bind MPI process to GPU devices. A description of how to bind devices
 and cores is given in the benchmark repository.
-Command line arguments can be shown with the `-h` option.
+
+The full list of command line arguments can be shown with the `-h` option.
+
+The benchmark executable can use either the CPU or available GPUs. The `--platform` parameter controls where the benchmark runs:
+- GPU runs, use
+  ```
+  --platform=gpu
+  ```
+- CPU runs, use
+  ```
+  --platform=cpu
+  ```
+
+The `qmode` parameter changes whether the quadrature points are colocated with the degrees of freedom, or not:
+- Colocation, use
+  ```
+  --qmode=0
+  ```
+- No collocation, use
+  ```
+  --qmode=1
+  ```
+For CPUs, only `--qmode=0` is supported.
+
 
 ### Benchmark execution
 
-For benchmarking purposes, combinations similar to the following options are needed:
+For benchmarking purposes, problem configurations similar to the following are needed:
 
 - Stencil throughput at Q3, 200M degrees-of-freedom:
   ```
@@ -139,25 +162,19 @@ For benchmarking purposes, combinations similar to the following options are nee
   ```
 - CG throughput at Q3, 200M degrees-of-freedom:
   ```
-  bench_dolfinx --cg --degree=3 --ndofs=200000000 \
+  bench_dolfinx --mat_comp --cg --degree=3 --ndofs=200000000 \
       --json CG-Q3-200M.json | tee CG-Q3-200M.out
 
-The precise run configurations are to be taken from the data spreadsheets enlisting the assessment configurations.
-  
-<i>TODO</i> We do not have a description of CPU vs GPU-based runs. However, we need both.
+The precise run configurations should be taken from the data spreadsheets enlisting the assessment configurations.
 
 
 ## Results
 
 ### Correctness testing
 
-Correctness can be verified using the [validate.py](./validate.py) script with the following configuration:
-```
-bench_dolfinx --mat_comp --ndofs_global=10000 --degree=3 \
-    --json output.json | tee output.out
-```
+Correctness can be verified using the [validate.py](./validate.py) script.
 
-The validation script should produce the following output:
+The validation script should be run as follows and produce output similar to the following:
 ```
 ./validate output.json output.out
  
@@ -168,12 +185,6 @@ The validation script should produce the following output:
                nreps : 1000
          scalar size : 64
  
-  ===========================================
-  CORRECTNESS TEST CASE                      
-              y_norm : 1.1415775083651327
-              z_norm : 1.141577508365133
-  ===========================================
- 
   MAT COMP performance: 0.2957402083152624 Gdofs/s
  
   Validation: PASSED
@@ -181,14 +192,16 @@ The validation script should produce the following output:
 
 ```
 
-Sanity check: The matrix comparison must be run on 1 GPU and 8 GPUs with 10000
+Sanity check: The matrix comparison must be run on 1 GPU and 8 GPUs with no collocation (`qmode=1`), 10000
 total dofs (`ndofs_global`), and in both cases should produce the same
 output `ynorm` and `znorm` (within numerical roundoff precision). 
 For a problem with 10000 dofs, the numerical value of the `ynorm` and
 `znorm` should be 1.141577508 to 9 decimal places. The console output
 and the JSON file should be reported.
 
-For the acceptance tests, all GPU-based computations must yield the same answer as a CPU-based variant subject to numerical roundoffs.
+For the acceptance tests, with `--qmode=0`, all GPU-based computations must
+yield the same answer as a CPU-based variant, subject to numerical
+roundoffs.
 
 ### Performance results
 
@@ -210,7 +223,7 @@ problem size can be increased to use more GPU memory.
 #### LUMI-G (MI250x): Throughput in GDoFs/s for 2-64 nodes (8-256 GPUs)
 
 Problem size of Q3 200M and Q6 350M were chosen to fit in the 64GB
-memory constraint of the devices.
+memory constraint of the devices. No collocation was used (`--qmode=1`).
 
 8 MPI processes per node (2 MPI processes per GPU, 1 MPI process per GCD).
 
@@ -232,7 +245,7 @@ memory constraint of the devices.
 #### Isambard-AI (GH200): Throughput in GDoFs/s for 4-256 nodes (16-1024 GPUs)
 
 Problem size of Q3 300M and Q6 500M were chosen to fit in the 96GB
-memory constraint of the devices.
+memory constraint of the devices. No collocation was used (`--qmode=1`).
 
 4 MPI processes per node (1 MPI process per GPU).
 
