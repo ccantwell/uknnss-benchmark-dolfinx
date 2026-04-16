@@ -48,7 +48,7 @@ Git repository: [https://github.com/ukri-bench/benchmark-dolfinx](https://github
 
 > **Important:** All results submitted should be based on the following repository commits:
 >- benchmark-dolfinx repository:
-  [9249489](https://github.com/ukri-bench/benchmark-dolfinx/commit/9249489d86364efd4e0150dda1596b50b22992ec)
+  [7339a7a](https://github.com/ukri-bench/benchmark-dolfinx/commit/7339a7a5a226c03d619019650fbd8ca245461803)
 >- dolfinx repository: *tag v0.10.0.post4* [ac47595](https://github.com/FEniCS/dolfinx/commit/ac47595b23119b1e8ef45c7cdd9b2f085772d63c)
 >- ffcx repository: *tag v0.10.1.post0* [009c0e7](https://github.com/FEniCS/ffcx/commit/009c0e75776314689be039b19eeffad6a1a2817f)
 >- basix repository: *tag v0.10.0.post0* [433fb7f](https://github.com/FEniCS/basix/commit/433fb7f60f8511e16bcbb403870867d20a69fb4a)
