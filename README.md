@@ -30,6 +30,7 @@ degree (`degree`) (range 2-7), Floating-point precision (`float`)
 (32/64). The maximum `ndofs` will be determined by the GPU memory
 size, but should be at least 100 million.
 
+<<<<<<< HEAD
 ## Status
 
 Stable
@@ -42,6 +43,8 @@ Stable
 >**Important:** Please do not contact the benchmark maintainers directly with any questions.
 All questions on the benchmark must be submitted via the procurement response mechanism.
 
+=======
+>>>>>>> main
 ## Software
 
 Git repository: [https://github.com/ukri-bench/benchmark-dolfinx](https://github.com/ukri-bench/benchmark-dolfinx)
@@ -70,6 +73,7 @@ It is recommended to use [Spack](https://spack.io/) to install the DOLFINx bench
    spack repo add --name fenics https://github.com/FEniCS/spack-fenics.git fenics
    ```
 
+<<<<<<< HEAD
 2. Create a Spack environment and install the benchmark
    ```
    spack env create /path/to/spack-env
@@ -77,6 +81,22 @@ It is recommended to use [Spack](https://spack.io/) to install the DOLFINx bench
    spack add bench-dolfinx
    spack install
    ```
+=======
+**Important:** All results submitted should be based on the following
+  repository commits:
+
+**Benchmark repository:**
+
+- benchmark-dolfinx repository:
+  [7339a7a](https://github.com/ukri-bench/benchmark-dolfinx/commit/7339a7a5a226c03d619019650fbd8ca245461803)
+
+**Core FEniCS repositories:**
+
+- dolfinx repository: *tag v0.10.0.post4* [ac47595](https://github.com/FEniCS/dolfinx/commit/ac47595b23119b1e8ef45c7cdd9b2f085772d63c)
+- ffcx repository: *tag v0.10.1.post0* [009c0e7](https://github.com/FEniCS/ffcx/commit/009c0e75776314689be039b19eeffad6a1a2817f)
+- basix repository: *tag v0.10.0.post0* [433fb7f](https://github.com/FEniCS/basix/commit/433fb7f60f8511e16bcbb403870867d20a69fb4a)
+- ufl repository: *tag 2025.2.0* [a53832a](https://github.com/FEniCS/ufl/commit/a53832a7700af019d369406db5fc5e7c2b4311c2)
+>>>>>>> main
 
 ### Requirements
 
@@ -202,6 +222,16 @@ and the JSON file should be reported.
 For the acceptance tests, with `--qmode=0`, all GPU-based computations must
 yield the same answer as a CPU-based variant, subject to numerical
 roundoffs.
+
+The same correctness test should be performed with the CG operator on
+1 and 8 GPUS:
+
+- Correctness comparison with matrix result: `bench_dolfinx --mat_comp --cg
+  --ndofs_global=10000 --degree=3 --json mat_comp_cg.json`
+
+In this case, `ynorm` and `znorm` should be 167.5924472. Console output
+and JSON should be reported.
+
 
 ### Performance results
 
