@@ -1,12 +1,13 @@
 # UK NNSS DOLFINx Benchmark
 
-This repository contains information on the GRID benchmark for the UK NNSS
+This repository contains information on the DOLFINx benchmark for the UK NNSS
 procurement. 
 
 > [!IMPORTANT]
 > Please do not contact the benchmark or code maintainers directly with any questions. All questions must be submitted via the procurement response mechanism.
 
 ## Benchmark Overview
+
 The DOLFINx Benchmark is a performance benchmark for testing
 matrix-free Finite Element operator evaluation on unstructured
 hexahedral grids.
