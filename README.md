@@ -288,3 +288,13 @@ Problem size of Q3 200M and Q6 350M were chosen. No collocation was used (`--qmo
 
 This benchmark description and associated files are released under the
 MIT license.
+
+## Changelog
+
+The following changes to this document have been made since initial release:
+
+| <div style="width:90px">Date</div> | Change |
+|-----------:|--------|
+| 2026-05-29 | Correct validation script to support CG correctness test |
+
+
