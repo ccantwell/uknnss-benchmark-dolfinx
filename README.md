@@ -145,20 +145,20 @@ For benchmarking purposes, problem configurations similar to the following are n
 
 - Stencil throughput at Q3, 200M degrees-of-freedom:
   ```
-  bench_dolfinx --mat_comp --degree=3 --ndofs=200000000 \
+  bench_dolfinx --degree=3 --ndofs=200000000 \
       --json MAT-Q3-200M.json | tee MAT-Q3-200M.out
   ```
 - Stencil throughput at Q6, 350M degrees-of-freedom:
   ```
-  bench_dolfinx --mat_comp --degree=6 --ndofs=350000000 \
+  bench_dolfinx --degree=6 --ndofs=350000000 \
       --json MAT-Q6-350M.json | tee MAT-Q6-350M.out
   ```
 - CG throughput at Q3, 200M degrees-of-freedom:
   ```
-  bench_dolfinx --mat_comp --cg --degree=3 --ndofs=200000000 \
+  bench_dolfinx --cg --degree=3 --ndofs=200000000 \
       --json CG-Q3-200M.json | tee CG-Q3-200M.out
 
-The precise run configurations should be taken from the data spreadsheets enlisting the assessment configurations.
+The precise run configurations should be taken from the data spreadsheets that list the assessment configurations.
 
 
 ## Results
@@ -295,6 +295,7 @@ The following changes to this document have been made since initial release:
 
 | <div style="width:90px">Date</div> | Change |
 |-----------:|--------|
+| 2026-06-05 | Removes incorrect `--mat-comp` option from suggested configurations |
 | 2026-05-29 | Correct validation script to support CG correctness test |
 
 
