@@ -56,10 +56,6 @@ print(f'                 ndof : {d["ndof"]}')
 print(f'                nreps : {d["nreps"]}')
 print(f'          scalar size : {d["fp"]}')
 
-if not d["is_mat_comp"]:
-    print(f'\n  ERROR: Benchmark must be run with --mat_comp')
-    valid = False
-
 if d["fp"] != 64:
     print(f'\n  ERROR: Benchmark must be run with 64-bit precision')
     valid = False
@@ -103,9 +99,9 @@ if valid:
             valid = False
 
 if d["is_cg"] and valid:
-    print(f'\n  CG performance: {d["gdofs"]} Gdofs/s')
+    print(f'\n  Stencil+CG performance: {d["gdofs"]} Gdofs/s')
 else:
-    print(f'\n  MAT COMP performance: {d["gdofs"]} Gdofs/s')
+    print(f'\n  Stencil performance: {d["gdofs"]} Gdofs/s')
 
 print("\n  Validation:", ("PASSED" if valid else "FAILED") )
 print()
