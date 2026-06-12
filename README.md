@@ -165,36 +165,13 @@ The precise run configurations should be taken from the data spreadsheets that l
 
 ### Correctness testing
 
-Correctness can be verified using the [validate.py](./validate.py) script.
-
-The validation script should be run as follows and produce output similar to the following:
-```
-./validate output.json output.out
- 
-# DOLFINx benchmark validation
- 
-                   P : 3
-                ndof : 10000
-               nreps : 1000
-         scalar size : 64
- 
-  MAT COMP performance: 0.2957402083152624 Gdofs/s
- 
-  Validation: PASSED
- 
-
-```
-
-Sanity check: The matrix comparison must be run on 1 GPU and 8 GPUs with no collocation (`qmode=1`), 10000
+To check that the benchmark software is working correctly, a matrix
+comparison job must be run on 1 GPU and 8 GPUs with no collocation (`qmode=1`), 10000
 total dofs (`ndofs_global`), and in both cases should produce the same
 output `ynorm` and `znorm` (within numerical roundoff precision). 
 For a problem with 10000 dofs, the numerical value of the `ynorm` and
 `znorm` should be 1.141577508 to 9 decimal places. The console output
 and the JSON file should be reported.
-
-For the acceptance tests, with `--qmode=0`, all GPU-based computations must
-yield the same answer as a CPU-based variant, subject to numerical
-roundoffs.
 
 The same correctness test should be performed with the CG operator on
 1 and 8 GPUS:
@@ -205,21 +182,39 @@ The same correctness test should be performed with the CG operator on
 In this case, `ynorm` and `znorm` should be 167.5924472. Console output
 and JSON should be reported.
 
+For both these tests, the [validate.py](./validate.py) script can be used to check 
+the values of `ynorm` and `znorm` meet the accuracy requirements (see description
+below of how to use the script).
+
+### Benchmark run validation
+
+Benchmark runs can be verified using the [validate.py](./validate.py) script.
+
+The validation script takes as input the JSON and console output from the 
+benchmark code. For example:
+```
+./validate output.json output.out
+ 
+# DOLFINx benchmark validation
+ 
+                   P : 3
+                ndof : 10000
+               nreps : 1000
+         scalar size : 64
+ 
+  Stencil performance: 0.2957402083152624 Gdofs/s
+ 
+  Validation: PASSED
+ 
+
+```
 
 ### Performance results
 
-In addition to testing for correctness, `validate.py` will also print the Computation Rate, which is the sole FoM for the benchmark.
+In addition to validating the benchmark run, `validate.py` will also
+print the Computation Rate, which is the sole FoM for the benchmark.
 The Computation Rate printed by `validate.py` corresponds to the
 total throughput in billion degrees of freedom per second (Gdofs/s).
-
-<!--
-The minimum problem size allowed is 200M DoFs at Q3 and 350M DoFs at
-Q6. Performance may improve with larger problems sizes, subject to
-memory available.
-
-The throughput tests can in principle be run on any number of GPU. The
-problem size can be increased to use more GPU memory.
--->
 
 ### Reference data
 
@@ -295,6 +290,7 @@ The following changes to this document have been made since initial release:
 
 | <div style="width:90px">Date</div> | Change |
 |-----------:|--------|
+| 2026-06-09 | Fixes validate.py script and clarifies wording around correctness and validation |
 | 2026-06-05 | Removes incorrect `--mat-comp` option from suggested configurations |
 | 2026-05-29 | Correct validation script to support CG correctness test |
 
